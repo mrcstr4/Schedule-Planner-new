@@ -41,18 +41,19 @@ function App() {
             <Route path="/admin/login" element={<AdminLogin />} />
             
             
-            <Route path="/admin/announcement" element={<AdminAnnouncement />} />
-            <Route path="/admin/manage-shift" element={<AdminManageShift />} />
-            <Route path="/admin/request-shift" element={<AdminRequest />} />
-            <Route path="/admin/profile" element={<AdminProfile />} />
+            
             {/* protected routes*/}
             <Route element={<ProtectedRoutes />}>
             <Route path="/homepage" element={<Dashboard />} />
                 
             </Route>
             <Route element={<ProtectedRoutesAdmin />}>
-            
-            </Route><Route path="/admin/homepage" element={<AdminDashboard />} />
+            <Route path="/admin/announcement" element={<AdminAnnouncement />} />
+            <Route path="/admin/manage-shift" element={<AdminManageShift />} />
+            <Route path="/admin/request-shift" element={<AdminRequest />} />
+            <Route path="/admin/profile" element={<AdminProfile />} />
+            <Route path="/admin/homepage" element={<AdminDashboard />} />
+            </Route>
         </Routes>
     </Router>
 </AuthContextProvider>
