@@ -34,8 +34,7 @@ function App() {
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
-            <Route path="/request-shift" element={<ReqShift />} />
-            <Route path="/profile" element={<Profile />} />
+            
 
             <Route path="/admin/register" element={<AdminRegistrationForm />} />
             <Route path="/admin/login" element={<AdminLogin />} />
@@ -45,8 +44,11 @@ function App() {
             {/* protected routes*/}
             <Route element={<ProtectedRoutes />}>
             <Route path="/homepage" element={<Dashboard />} />
-                
+            <Route path="/request-shift" element={<ReqShift />} />
+            <Route path="/profile" element={<Profile />} />
             </Route>
+
+
             <Route element={<ProtectedRoutesAdmin />}>
             <Route path="/admin/announcement" element={<AdminAnnouncement />} />
             <Route path="/admin/manage-shift" element={<AdminManageShift />} />
@@ -54,6 +56,8 @@ function App() {
             <Route path="/admin/profile" element={<AdminProfile />} />
             <Route path="/admin/homepage" element={<AdminDashboard />} />
             </Route>
+
+            
         </Routes>
     </Router>
 </AuthContextProvider>
