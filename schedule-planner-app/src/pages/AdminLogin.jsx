@@ -40,11 +40,14 @@ const AdminLogin = () => {
     dispatch({type: "LOGIN_START"})
     try {
 
-      const res = await axios.post("http://localhost:4000/api/auth/login/admin", {
-        email,
-        password
-      });
+      const res = await axios.post(
+        "http://localhost:4000/api/auth/login/admin", 
+        { email, password },
+        { withCredentials: true } // Ensures the cookie is stored
+    );
+
       dispatch({type: "LOGIN_SUCCESS", payload: res.data})
+      localStorage.setItem("accessToken", res.data.accessToken); // Save token
       navigate("/admin/homepage")
       
     } catch (error) {

@@ -3,7 +3,8 @@ import { createError } from "../utils/error.js";
 
 // Verify JWT token
 export const verifyToken = (req, res, next) => {
-    const token = req.cookies.access_token;
+    
+    let token = req.cookies.access_token || req.headers.authorization?.split(" ")[1]; // Support both cookie and header
     if (!token) {
         return next(createError(401, "Authentication required"));
     }

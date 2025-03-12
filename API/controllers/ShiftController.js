@@ -17,11 +17,11 @@ export const CreateShift = async (req, res, next) => {
         let existingShift = await Shift.findOne({ date: shiftDate, startTime, endTime, shiftType });
 
         if (existingShift) {
-            // Add new employees to the assignedEmployees array (avoiding duplicates)
-            existingShift.assignedEmployees = [
-                ...new Set([...existingShift.assignedEmployees, ...assignedEmployees])
-            ];
-            await existingShift.save();
+            // Use MongoDB `$addToSet` to prevent duplicate employees
+            await Shift.updateOne(
+                { _id: existingShift._id },
+                { $addToSet: { assignedEmployees: { $each: assignedEmployees } } }
+            );
         } else {
             // Create a new shift if no matching shift exists
             existingShift = new Shift({
@@ -37,10 +37,10 @@ export const CreateShift = async (req, res, next) => {
         // Update assigned employees' shift lists
         await User.updateMany(
             { _id: { $in: assignedEmployees } },
-            { $push: { shifts: existingShift._id } }
+            { $addToSet: { shifts: existingShift._id } } // Prevent duplicate shift assignments for users
         );
 
-        res.status(201).json({ message: "Shift added successfully", shift: existingShift });
+        res.status(200).json({ message: "Shift added successfully", shift: existingShift });
     } catch (error) {
         next(error);
     }
@@ -85,7 +85,7 @@ export const CreateShift = async (req, res, next) => {
             );
         }
 
-        res.status(200).json(update_Shift);
+        res.status(200).json({ message: "Shift updated successfully", update_shift: update_Shift});
     } catch (error) {
         next(error);
     }
@@ -134,19 +134,21 @@ export const getShift = async(req, res, next) => {
         }
 };
 
+
 // get all shift
 export const getAllShift = async(req, res, next) => { 
     try {
-            const getAll_shift = await Shift.find();
+        const shifts = await Shift.find().populate("assignedEmployees", "firstname email _id"); // Fetch users
+       
     
-            if (getAll_shift.length === 0) {
+            if (shifts.length === 0) {
                 return res.status(404).json({ message: "Empty" });
             }
-            
-            res.status(200).json(getAll_shift);
+            res.status(200).json(shifts);
             
         } catch (error) {
             next(error);
         }
 };
+
 
