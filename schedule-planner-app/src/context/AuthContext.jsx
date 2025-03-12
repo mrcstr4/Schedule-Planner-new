@@ -49,6 +49,7 @@ export const AuthContextProvider = ({ children }) => {
             localStorage.setItem("user", JSON.stringify(state.user));
         } else {
             localStorage.removeItem("user");
+            localStorage.removeItem("accessToken")
         }
     }, [state.user]);
 

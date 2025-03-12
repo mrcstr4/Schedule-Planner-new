@@ -231,7 +231,7 @@ export const Login = async(req, res, next) => {
         
         const userDetails = user.toObject ? user.toObject() : user;
 
-        const { password, isAdmin, ...otherDetails } = userDetails; 
+        const { password, ...otherDetails } = userDetails; 
 
         console.log(otherDetails);
 
