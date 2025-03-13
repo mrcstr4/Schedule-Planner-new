@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/AuthContext";
 import NavbarAdmin from '../../components/NavbarAdmin';
 
 const AdminAnnouncement = () => {
-  const { user, dispatch } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -38,7 +38,7 @@ const AdminAnnouncement = () => {
         setIsEditing(false);
         setEditId(null);
       } else {
-        await axios.post('http://localhost:4000/api/announcements/create', { title, content, expiresAt });
+        await axios.post('http://localhost:4000/api/announcements/create', { title, content, expiresAt, userId: user.user._id });
         alert('Announcement created successfully!');
       }
       setTitle('');

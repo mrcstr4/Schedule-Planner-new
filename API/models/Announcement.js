@@ -1,3 +1,4 @@
+// filepath: /home/kryptonknight/mer/sched-new/Schedule-Planner-new/API/models/Announcement.js
 import mongoose from 'mongoose';
 
 const AnnouncementSchema = new mongoose.Schema({
@@ -5,6 +6,7 @@ const AnnouncementSchema = new mongoose.Schema({
   content: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
   expiresAt: { type: Date, required: true }, // Expiration date
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // User ID
 });
 
 export default mongoose.model('Announcement', AnnouncementSchema);
