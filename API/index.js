@@ -8,7 +8,7 @@ import announcementRoutes from './routes/announcementRoute.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import cron from 'node-cron';
-import Announcement from './models/Announcement.js';
+import profileEditRoute from './routes/profileEditRoute.js';
 
 
 
@@ -38,7 +38,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
 app.use("/api/shift", shiftRoute);
 app.use('/api/announcements', announcementRoutes);
-
+app.use('/api/edit', profileEditRoute);
 
 app.use((err, req, res, next) =>{
     const errorStatus = err.status || 500

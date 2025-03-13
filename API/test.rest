@@ -1,0 +1,11 @@
+PUT http://localhost:4000/api/edit/67ce824821ca27fa3d99b873
+Content-Type: application/json
+
+{
+    "name": "test",
+    "email": ""
+}
+
+###
+
+GET http://localhost:4000/api/edit/67ce824821ca27fa3d99b873

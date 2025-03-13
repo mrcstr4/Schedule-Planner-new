@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { FaSignOutAlt, FaHome, FaUser, FaBars, FaTimes, FaClipboardList } from "react-icons/fa";
 import { AuthContext } from '../context/AuthContext';
 
@@ -8,6 +8,12 @@ const NavbarEmployee = () => {
   const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [title, setTitle] = useState('Dashboard');
+  const location = useLocation();
+  const navlinks = [
+    { link: "/homepage", label: "Home", icon: <FaHome className="mr-3 text-blue-900" /> },
+    { link: "/request-shift", label: "Request Shift", icon: <FaClipboardList className="mr-3 text-blue-900" /> },
+    { link: "/profile", label: "Profile", icon: <FaUser className="mr-3 text-blue-900" /> }
+  ];
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
@@ -15,8 +21,8 @@ const NavbarEmployee = () => {
   };
 
   const handleRoutes = (path, title) => {
-    setTitle(title);
     navigate(path);
+    setTitle(title);
   };
 
   return (
@@ -35,20 +41,21 @@ const NavbarEmployee = () => {
           <FaTimes size={24} />
         </button>
 
-        <h5 className="text-xl font-semibold text-gray-900 mb-4">{title}</h5>
+        <h5 className="text-xl font-semibold text-gray-900 mb-4">
+          {location.pathname === "/homepage" ? "Home" : location.pathname === "/request-shift" ? "Request Shift" : location.pathname === "/profile" ? "Profile" : title}
+        </h5>
+
         <nav className="flex flex-col gap-2">
-          <button className="flex items-center p-3 rounded-lg hover:bg-blue-50 transition" onClick={() => handleRoutes("/homepage", "Home")}>
-            <FaHome className="mr-3 text-blue-900" />
-            Home
-          </button>
-          <button className="flex items-center p-3 rounded-lg hover:bg-blue-50 transition" onClick={() => handleRoutes("/request-shift", "Request Shift")}>
-            <FaClipboardList className="mr-3 text-blue-900" />
-            Request Shift
-          </button>
-          <button className="flex items-center p-3 rounded-lg hover:bg-blue-50 transition" onClick={() => handleRoutes("/profile", "Profile")}>
-            <FaUser className="mr-3 text-blue-900" />
-            Profile
-          </button>
+          {navlinks.map((navlink) => (
+            <button
+              key={navlink.link}
+              className="flex items-center p-3 rounded-lg hover:bg-blue-50 transition"
+              onClick={() => handleRoutes(navlink.link, navlink.label)}
+            >
+              {navlink.icon}
+              {navlink.label}
+            </button>
+          ))}
           <button
             onClick={handleLogout}
             className="flex items-center p-3 rounded-lg text-red-600 hover:bg-red-50 transition"
@@ -65,10 +72,6 @@ const NavbarEmployee = () => {
         <button className="md:hidden mb-4 text-gray-600" onClick={() => setIsSidebarOpen(true)}>
           <FaBars size={24} />
         </button>
-
-        <h2 className="text-2xl font-semibold mb-4">
-          Welcome, {user && user.user ? user.user.firstname : "Employee"}!
-        </h2>
       </div>
     </div>
   );

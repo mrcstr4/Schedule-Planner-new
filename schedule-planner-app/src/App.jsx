@@ -18,6 +18,7 @@ import AdminAnnouncement from './pages/Admin/AdminAnnouncement';
 import AdminManageShift from './pages/Admin/AdminManageShift';
 import AdminRequest from './pages/Admin/AdminRequest';
 import AdminProfile from './pages/Admin/AdminProfile';
+import ProfileEditPage from './pages/Employee/ProfileEditPage';
 
 
 
@@ -46,8 +47,9 @@ function App() {
             <Route path="/homepage" element={<Dashboard />} />
             <Route path="/request-shift" element={<ReqShift />} />
             <Route path="/profile" element={<Profile />} />
+            
             </Route>
-
+            <Route path="/profile-edit" element={<ProfileEditPage />} />
 
             <Route element={<ProtectedRoutesAdmin />}>
             <Route path="/admin/announcement" element={<AdminAnnouncement />} />
