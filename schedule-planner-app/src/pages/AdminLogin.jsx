@@ -49,7 +49,7 @@ const AdminLogin = () => {
       dispatch({type: "LOGIN_SUCCESS", payload: res.data})
       localStorage.setItem("accessToken", res.data.accessToken); // Save token
       navigate("/admin/homepage")
-      
+      localStorage.setItem('userId', res.data.user._id);
     } catch (error) {
       const errorMessage = error.response?.data?.message || "Invalid credentials";
       dispatch({ type: "LOGIN_FAILURE", payload: errorMessage });

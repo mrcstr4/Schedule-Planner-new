@@ -20,6 +20,7 @@ import AdminProfile from './pages/Admin/AdminProfile';
 import ProfileEditPage from './pages/Employee/ProfileEditPage';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AdminProfileEditPage from './pages/Admin/AdminProfileEditPage';
 
 function App() {  
   return (
@@ -50,6 +51,7 @@ function App() {
               <Route path="/admin/request-shift" element={<AdminRequest />} />
               <Route path="/admin/profile" element={<AdminProfile />} />
               <Route path="/admin/homepage" element={<AdminDashboard />} />
+              <Route path="/admin/profile-edit" element={<AdminProfileEditPage />} />
             </Route>
           </Routes>
           <ToastContainer />
